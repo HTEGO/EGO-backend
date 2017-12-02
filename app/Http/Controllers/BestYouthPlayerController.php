@@ -1,9 +1,10 @@
-<?php namespace Ego\Http\Controllers;
+<?php
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request ;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
-use Ego\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 
 class BestYouthPlayerController extends Controller {
 
