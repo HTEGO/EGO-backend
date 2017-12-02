@@ -30,8 +30,8 @@ Route::get('YouthList/add',
 
 Route::get('YouthList/list',
 [
-    'uses' => 'YouthListController@youthList'
     'middleware' => 'cors',
+    'uses' => 'YouthListController@youthList'
 ]);
 
 Route::get('YouthList/remove',
