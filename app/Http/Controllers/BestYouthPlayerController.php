@@ -20,7 +20,7 @@ class BestYouthPlayerController extends Controller {
     $listId = 0;
 
 		$query = DB::table("youthplayer AS p")
-			->select(DB::raw("p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, l.order, max(l.stars) stars, yot.name teamName, l.order, yl.youthlist_id as list"))
+			->select(DB::raw("p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, l.order, max(l.stars) stars, st.name teamName, l.order, yl.youthlist_id as list"))
 			->join("youthmatchlineup AS l","l.youthPlayer_id","=","p.id")
 			->join("youthteam AS yot","yot.id","=","p.youthTeam_id")
 			->join("seniorteam AS st","st.id","=","seniorTeam_id")
@@ -33,6 +33,7 @@ class BestYouthPlayerController extends Controller {
 		$age = $request->input('age');
 		$minimunDays = $request->input('minimumDays');
 		$maximunDays = $request->input('maximumDays');
+		$specialty = $request->input('specialty');
 
 		if(!isset($stars)){
 			$query->where("l.stars",">=",4);
@@ -88,6 +89,16 @@ class BestYouthPlayerController extends Controller {
 		if(isset($maximunDays)){
 			$query->where("p.days","<=",$maximunDays);
 		}
+
+    if(isset($specialty)){
+      if($specialty == -1) {
+        $query->where('p.specialty','>',0);
+      } elseif ($specialty == -2){
+        $query->where('p.specialty','=',0);
+      } elseif ($specialty > 0){
+        $query->where('p.specialty','=',$specialty);
+      }
+    }
 		//$results = DB::select('SELECT p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, l.order, l.stars FROM youthplayer p INNER JOIN youthmatchlineup l ON l.youthPlayer_id = p.id INNER JOIN youthteam yt ON yt.id = p.youthTeam_id INNER JOIN seniorteam st ON st.id = yt.seniorTeam_id WHERE l.stars >= ?', [4]);
 
 		$players = $query->get();
