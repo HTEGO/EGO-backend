@@ -18,24 +18,24 @@ Route::get('/', function () {
 
 Route::get('bestYouthPlayer',
 [
-  //  'middleware' => 'cors',
+   'middleware' => 'cors',
     'uses' => 'BestYouthPlayerController@listBestYouthPlayers'
 ]);
 
 Route::get('YouthList/add',
 [
-   // 'middleware' => 'cors',
+   'middleware' => 'cors',
     'uses' => 'YouthListController@add'
 ]);
 
 Route::get('YouthList/list',
 [
-   // 'middleware' => 'cors',
     'uses' => 'YouthListController@youthList'
+    'middleware' => 'cors',
 ]);
 
 Route::get('YouthList/remove',
 [
-  //  'middleware' => 'cors',
+   'middleware' => 'cors',
     'uses' => 'YouthListController@remove'
 ]);
