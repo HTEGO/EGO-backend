@@ -28,15 +28,15 @@ class BestYouthPlayerController extends Controller {
 
 			->distinct();
 
-		$stars = $request->input('starts');
+		$stars = $request->input('stars');
 		$position = $request->input('position');
 		$age = $request->input('age');
 		$minimunDays = $request->input('minimumDays');
 		$maximunDays = $request->input('maximumDays');
 		$specialty = $request->input('specialty');
 
-		if(!isset($stars)){
-			$query->where("l.stars",">=",4);
+		if(isset($stars)){
+			$query->where("l.stars",">=",floatval($stars));
 		}
 
 
@@ -73,6 +73,13 @@ class BestYouthPlayerController extends Controller {
         $join->on('yl.youthplayer_id','=','p.id','and')
         ->where('yl.youthlist_id','=',$listId);
       });
+      $blackListId = $listId + 6;
+      $query->leftJoin('youthlistyouthplayer AS ylbl', function($join) use ($blackListId){
+        $join->on('ylbl.youthplayer_id','=','p.id','and')
+        ->where('ylbl.youthlist_id','=',$blackListId);
+      });
+
+      $query->whereNull('ylbl.youthlist_id');
 		}
 
 		if(isset($age)){
