@@ -39,7 +39,7 @@ class YouthListController extends Controller {
 
       if( isset($list) ) {
         $query = DB::table("youthlistyouthplayer AS yl")
-  			->select(DB::raw("p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, max(l.stars) stars"))
+  			->select(DB::raw("p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, max(l.stars) stars, yl.youthlist_id list"))
         ->join("youthplayer AS p",'yl.youthplayer_id','=','p.id')
   			->join("youthmatchlineup AS l","l.youthPlayer_id","=","p.id")
         ->groupBy('p.id')
