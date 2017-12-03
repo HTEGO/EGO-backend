@@ -33,6 +33,11 @@ Route::get('YouthList/list',
     'middleware' => 'cors',
     'uses' => 'YouthListController@youthList'
 ]);
+Route::get('YouthList/blacklist',
+[
+    'middleware' => 'cors',
+    'uses' => 'YouthListController@youthBlacklist'
+]);
 
 Route::get('YouthList/remove',
 [

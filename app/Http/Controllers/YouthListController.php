@@ -54,6 +54,26 @@ class YouthListController extends Controller {
       return response()->json($results);
     }
 
+    public function youthBlacklist(Request $request)
+    {
+      $listIds =  [];
+      for($i = 0; $i < 6; $i++){
+        $listIds[$i] = $i + 6;
+      }
+
+      $query = DB::table("youthlistyouthplayer AS yl")
+			->select(DB::raw("p.id, p.first_name, p.last_name, p.age, p.days, p.specialty, l.position, max(l.stars) stars, yl.youthlist_id list"))
+      ->join("youthplayer AS p",'yl.youthplayer_id','=','p.id')
+			->join("youthmatchlineup AS l","l.youthPlayer_id","=","p.id")
+      ->groupBy('p.id')
+      ->distinct();
+
+      $query->whereIn("yl.youthlist_id", $listIds);
+      $results = $query->get();
+
+      return response()->json($results);
+    }
+
     public function remove(Request $request){
   		$list = $request->input('list');
 
