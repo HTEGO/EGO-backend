@@ -11,36 +11,6 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
-Route::get('bestYouthPlayer',
-[
-   'middleware' => 'cors',
-    'uses' => 'BestYouthPlayerController@listBestYouthPlayers'
-]);
-
-Route::get('YouthList/add',
-[
-   'middleware' => 'cors',
-    'uses' => 'YouthListController@add'
-]);
-
-Route::get('YouthList/list',
-[
-    'middleware' => 'cors',
-    'uses' => 'YouthListController@youthList'
-]);
-Route::get('YouthList/blacklist',
-[
-    'middleware' => 'cors',
-    'uses' => 'YouthListController@youthBlacklist'
-]);
-
-Route::get('YouthList/remove',
-[
-   'middleware' => 'cors',
-    'uses' => 'YouthListController@remove'
-]);
+// Route::get('/', function () {
+//     return view('welcome');
+// });
